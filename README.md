@@ -20,8 +20,8 @@ WAVファイルの数とテキストの行数は一致している必要があ�
 ```
 $ docker compose build
 $ docker compose run app bash
-$ python3 phoneme.py  // 音素の場合
-$ python3 kana.py     // かなの場合
+$ python3 phoneme.py  // 音素テキスト入力の場合
+$ python3 kana.py     // かなテキスト入力の場合
 $ exit
 $ docker compose down
 ```
