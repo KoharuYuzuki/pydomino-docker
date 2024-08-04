@@ -60,17 +60,16 @@ def kana2phoneme(kana: str) -> list[str]:
 
 def main():
   wav_file_paths = sorted(glob('wav/*.wav'))
-  phonemes_list = []
+  kana_list = []
 
   with open('kana.txt') as file:
     for line in file:
       stripped = line.rstrip()
 
       if stripped != '':
-        phonemes = ' '.join(kana2phoneme(stripped))
-        phonemes_list.append(phonemes)
+        kana_list.append(stripped)
 
-  assert len(wav_file_paths) == len(phonemes_list)
+  assert len(wav_file_paths) == len(kana_list)
 
   alignmer = pydomino.Aligner('/pydomino/onnx_model/model.onnx')
 
@@ -78,7 +77,8 @@ def main():
     print(F'aligning: {i + 1} / {len(wav_file_paths)}')
 
     wave, _ = librosa.load(wav_file_path, sr=16_000, mono=True, dtype=np.float32)
-    phonemes = phonemes_list[i]
+    kana = kana_list[i]
+    phonemes = ' '.join(kana2phoneme(kana))
     result = alignmer.align(wave, phonemes, 3)
 
     basename_without_ext = os.path.splitext(os.path.basename(wav_file_path))[0]
