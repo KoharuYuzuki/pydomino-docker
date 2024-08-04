@@ -1,3 +1,6 @@
+lab/*.lab
+wav/*.wav
+
 kana.txt
 phoneme.txt
 tmp.lab
